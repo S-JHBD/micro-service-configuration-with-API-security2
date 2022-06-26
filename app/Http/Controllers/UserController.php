@@ -21,9 +21,11 @@ public function index(){
 public function add(Request $request ){
     $rules = [
         'username' => 'required|max:20',
-        'password' => 'required|max:20',     
+        'password' => 'required|max:20',
+        'jobid' => 'required|numeric|min:1|not_in:0',  
     ];
     $this->validate($request,$rules);
+    $userjob = UserJob::findOrFail($request->jobid);
     $user = User::create($request->all());
     return $this->successResponse($user, Response::HTTP_CREATED);
 }
@@ -36,9 +38,11 @@ public function update(Request $request,$id)
     $rules = [
         'username' => 'max:20',
         'password' => 'max:20',
+        'jobid' => 'required|numeric|min:1|not_in:0',
      
     ];
     $this->validate($request, $rules);
+    $userjob = UserJob::findOrFail($request->jobid);
     $user = User::findOrFail($id);
    
     $user->fill($request->all());
