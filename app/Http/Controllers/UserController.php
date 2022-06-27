@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\UserJob;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -22,7 +23,7 @@ public function add(Request $request ){
     $rules = [
         'username' => 'required|max:20',
         'password' => 'required|max:20',
-        'jobid' => 'required|numeric|min:1|not_in:0',  
+        'jobid' => 'required|numeric|min:1|not_in:0'
     ];
     $this->validate($request,$rules);
     $userjob = UserJob::findOrFail($request->jobid);
